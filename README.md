@@ -8,7 +8,7 @@ This tool:
 1. **Extracts factors** from your `factors.txt` file
 2. **Fetches historical data** for BTC and each factor from Yahoo Finance and other sources
 3. **Aligns data** on common dates and preprocesses for analysis
-4. **Creates visualizations** showing BTC vs factor evolution
+4. **Creates visualizations** showing BTC vs. factor evolution
 5. **Calculates statistics** including Pearson and Spearman correlations
 6. **Generates PDF reports** for each factor with professional layouts
 7. **Creates a summary** CSV and PDF with all correlation coefficients ranked
@@ -20,7 +20,7 @@ This tool:
 ✅ **Statistical Analysis** - Pearson/Spearman correlations, p-values, summary statistics  
 ✅ **PDF Reports** - Professional, readable reports for each factor  
 ✅ **Summary Rankings** - CSV and PDF with all factors ranked by correlation  
-✅ **Error Handling** - Graceful handling of missing data, API failures  
+✅ **Error Handling** - Graceful handling of missing data and API failures  
 ✅ **Logging** - Detailed logging to file and console  
 ✅ **Caching** - Efficient data reuse to minimize API calls  
 
@@ -46,14 +46,14 @@ pip install -r requirements.txt
 ## Usage
 
 ### Basic Usage
-```python
+```bash
 python btc_factor_analyzer.py
 ```
 
 This will:
 - Read factors from `factors.txt`
 - Analyze the first 15 factors (configurable)
-- Create reports in `BTC_Factor_Reports/` directory
+- Create reports in the `BTC_Factor_Reports/` directory
 - Generate PDFs, charts, and a summary CSV
 
 ### Advanced Usage - Custom Script
@@ -84,9 +84,9 @@ In `btc_factor_analyzer.py`, modify the `main()` function:
 ```python
 analyzer = BTCFactorAnalyzer(
     factors_file=str(factors_file),        # Path to factors.txt
-    output_dir=str(output_dir),             # Output directory for reports
-    start_date='2022-01-01',                # Historical data start date
-    end_date=None                           # End date (None = today)
+    output_dir=str(output_dir),            # Output directory for reports
+    start_date='2022-01-01',               # Historical data start date
+    end_date=None                          # End date (None = today)
 )
 
 results = analyzer.run_analysis(max_factors=15)  # Limit factors to analyze
@@ -99,11 +99,11 @@ results = analyzer.run_analysis(max_factors=15)  # Limit factors to analyze
 BTC_Factor_Reports/
 ├── BTC_Correlation_Summary.csv              # All factors ranked by correlation
 ├── BTC_Correlation_Summary.pdf              # Summary PDF with rankings
-├── BTC_vs_S&P_500.pdf                      # Individual factor report
+├── BTC_vs_S&P_500.pdf                       # Individual factor report
 ├── BTC_vs_Gold_(XAU_USD).pdf
 ├── BTC_vs_NASDAQ_100.pdf
 ├── ... (one PDF per factor)
-├── chart_S&P_500.png                       # Supporting chart images
+├── chart_S&P_500.png                        # Supporting chart images
 ├── chart_Gold_(XAU_USD).png
 └── ... (one chart per factor)
 ```
@@ -121,7 +121,7 @@ Gold (XAU/USD),0.5421,0.0003,730,/path/BTC_vs_Gold_(XAU_USD).pdf
 Each PDF includes:
 - **Title & Metadata** - Factor name, analysis period, generation date
 - **Multi-Panel Chart**:
-  - Normalized price evolution (BTC vs Factor)
+  - Normalized price evolution (BTC vs. Factor)
   - Scatter plot with trend line
   - 30-day rolling correlation
   - Statistical summary box
@@ -130,7 +130,7 @@ Each PDF includes:
   - P-values and data points
   - BTC price statistics (mean, std dev, min, max)
   - Factor statistics
-- **Interpretation** - English explanation of correlation strength
+- **Interpretation** - Plain-language explanation of correlation strength
 
 ## Supported Factors
 
@@ -145,7 +145,7 @@ The tool includes built-in support for 60+ factors:
 
 ### Adding Custom Factors
 
-Edit the `TICKER_MAPPING` dictionary in `DataFetcher` class:
+Edit the `TICKER_MAPPING` dictionary in the `DataFetcher` class:
 
 ```python
 TICKER_MAPPING = {
@@ -178,7 +178,7 @@ For example:
 ## Data Handling
 
 ### Alignment
-- All data is aligned to common trading dates (no BTC trades weekends, so stocks are interpolated)
+- All data is aligned to common trading dates (BTC trades 24/7, but stock markets close on weekends, so stock data is forward-filled)
 - Missing values forward-filled up to 5 days
 - Records with NaN values dropped
 
@@ -191,19 +191,19 @@ For example:
 - **No data for factor**: Logged as warning, analysis skipped
 - **Insufficient overlap**: Factor marked as failed
 - **API errors**: Gracefully handled, next factor processed
-- **Network issues**: Automatic retry (1 attempt, can be configured)
+- **Network issues**: Automatic retry (1 attempt, configurable)
 
 ## Statistical Methods
 
 ### Correlation Metrics
-- **Pearson Correlation**: Linear relationship, parametric
-- **Spearman Correlation**: Rank-based relationship, non-parametric
+- **Pearson Correlation**: Measures linear relationship (parametric)
+- **Spearman Correlation**: Measures rank-based relationship (non-parametric)
 - **P-value**: Statistical significance (p < 0.05 = significant)
 - **Rolling Correlation**: 30-day window correlation over time
 
 ### Returns Calculation
 - Daily log returns: `ln(P_t / P_{t-1})`
-- Correlation of returns (not prices) for better statistical properties
+- Correlation calculated on returns (not prices) for better statistical properties
 
 ## Performance
 
@@ -226,20 +226,20 @@ pip install -r requirements.txt
 **Solution**: 
 - Verify ticker symbol in `TICKER_MAPPING`
 - Check if ticker is valid on Yahoo Finance
-- Ensure market is open (weekdays)
+- Ensure market is open (weekdays for stocks)
 
 ### Issue: Empty CSV summary
 **Cause**: All factors failed to fetch  
 **Solution**:
 - Check internet connection
-- Verify factor names match TICKER_MAPPING
+- Verify factor names match `TICKER_MAPPING`
 - Check logs in `btc_analysis.log`
 
 ### Issue: Slow performance
 **Cause**: API rate limiting  
 **Solution**:
 - Reduce `max_factors` parameter
-- Run in off-hours (Yahoo Finance less congested)
+- Run during off-peak hours (Yahoo Finance is less congested)
 - Increase time between runs
 
 ## Example Results
@@ -251,13 +251,13 @@ ANALYSIS RESULTS SUMMARY
 
 Successfully analyzed factors:
   • S&P 500                                | Correlation:   0.6234
-  • NASDAQ 100                            | Correlation:   0.6891
-  • Gold (XAU/USD)                        | Correlation:   0.5421
-  • Ethereum (ETH)                        | Correlation:   0.9123
-  • DXY (US Dollar Index)                 | Correlation:  -0.4532
-  • 10-Year Treasury Yield                | Correlation:  -0.3821
-  • Crude Oil (WTI)                       | Correlation:   0.4123
-  • VIX (CBOE Volatility Index)           | Correlation:  -0.5234
+  • NASDAQ 100                             | Correlation:   0.6891
+  • Gold (XAU/USD)                         | Correlation:   0.5421
+  • Ethereum (ETH)                         | Correlation:   0.9123
+  • DXY (US Dollar Index)                  | Correlation:  -0.4532
+  • 10-Year Treasury Yield                 | Correlation:  -0.3821
+  • Crude Oil (WTI)                        | Correlation:   0.4123
+  • VIX (CBOE Volatility Index)            | Correlation:  -0.5234
   ...
 
 Failed to analyze:
@@ -277,7 +277,7 @@ Summary report: C:\Users\moulo\Documents\Hobbies\BTCPredict\BTC_Factor_Reports\B
 - **0.10 to 0.29**: Weak relationship
 - **0.00 to 0.09**: Very weak/no relationship
 
-### Positive vs Negative
+### Positive vs. Negative
 - **Positive (+)**: BTC rises when factor rises
 - **Negative (-)**: BTC rises when factor falls (inverse relationship)
 
@@ -306,7 +306,7 @@ Create subclasses for advanced analysis:
 ```python
 class AdvancedAnalyzer(BTCFactorAnalyzer):
     def calculate_beta(self, btc_returns, factor_returns):
-        """Calculate BTC beta vs factor"""
+        """Calculate BTC beta vs. factor"""
         covariance = np.cov(btc_returns, factor_returns)[0][1]
         variance = np.var(factor_returns)
         return covariance / variance
@@ -363,6 +363,3 @@ Potential additions:
 **Version**: 1.0  
 **Last Updated**: 2024-02-15  
 **Python Version**: 3.8+
-#   B T C - p r i c e - p r e d i c t i o n 
- 
- 
