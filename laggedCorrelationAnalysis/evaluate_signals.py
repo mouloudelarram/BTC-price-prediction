@@ -155,3 +155,5 @@ def main():
 
 if __name__ == "__main__":
     print(main())
+ 
+ # how to run - for single decision: python evaluate_signals.py --date 2026-02-14 --decision BUY

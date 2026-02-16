@@ -65,7 +65,7 @@ def run_all(input_path: Path):
 
     # Gemin engine: main(input_text) expects raw text
     try:
-        from GeminBTCLaggedCorrelationDecisionEngine import main as gemin_main
+        from laggedCorrelationAnalysis.legacy.GeminBTCLaggedCorrelationDecisionEngine import main as gemin_main
 
         sig, info = gemin_main(text)
         results["Gemin"] = {"raw": sig, "normalized": normalize_signal(sig), "info": info}
@@ -74,7 +74,7 @@ def run_all(input_path: Path):
 
     # Perplexity engine: main(input_path) -> returns (signal, info)
     try:
-        from PerplexityBTCLaggedCorrelationDecisionEngine import main as perplexity_main
+        from laggedCorrelationAnalysis.legacy.PerplexityBTCLaggedCorrelationDecisionEngine import main as perplexity_main
 
         sig, info = perplexity_main(str(input_path))
         results["Perplexity"] = {"raw": sig, "normalized": normalize_signal(sig), "info": info}

@@ -125,7 +125,7 @@
   Ticker  Correlation period  shift_days
 0  ^NZ50     0.209805    6mo           7
 1  ^AXJO     0.183244    6mo           7
-2    IEF     0.169341    6mo           7
+2    IEF     0.169342    6mo           7
 
 --- Analysis for Period: 1y with Shift of 1 day(s) ---
   Ticker  Correlation period  shift_days
@@ -136,7 +136,7 @@
 --- Analysis for Period: 1y with Shift of 2 day(s) ---
   Ticker  Correlation period  shift_days
 0  ^KLSE     0.692976     1y           2
-1    TLT     0.608427     1y           2
+1    TLT     0.608425     1y           2
 2    TLT     0.608424     1y           2
 
 --- Analysis for Period: 1y with Shift of 3 day(s) ---
@@ -160,95 +160,95 @@
 --- Analysis for Period: 1y with Shift of 6 day(s) ---
   Ticker  Correlation period  shift_days
 0  ^IBEX     0.989874     1y           6
-1    XLV     0.891071     1y           6
-2    XLV     0.891058     1y           6
+1    XLV     0.891061     1y           6
+2    XLV     0.891060     1y           6
 
 --- Analysis for Period: 1y with Shift of 7 day(s) ---
     Ticker  Correlation period  shift_days
 0  MKR-USD     0.895736     1y           7
 1     ICLN     0.869801     1y           7
-2     ICLN     0.869801     1y           7
+2     ICLN     0.869799     1y           7
 
 --- Analysis for Period: 2y with Shift of 1 day(s) ---
    Ticker  Correlation period  shift_days
-0   ^AXJO     0.218796     2y           1
-1   ^AORD     0.214523     2y           1
-2  ^GDAXI     0.200884     2y           1
+0   ^AXJO     0.217701     2y           1
+1   ^AORD     0.213552     2y           1
+2  ^GDAXI     0.200895     2y           1
 
 --- Analysis for Period: 2y with Shift of 2 day(s) ---
       Ticker  Correlation period  shift_days
-0    CRV-USD     0.194416     2y           2
-1      ^NZ50     0.158445     2y           2
-2  1INCH-USD     0.144044     2y           2
+0    CRV-USD     0.194393     2y           2
+1      ^NZ50     0.158131     2y           2
+2  1INCH-USD     0.144058     2y           2
 
 --- Analysis for Period: 2y with Shift of 3 day(s) ---
     Ticker  Correlation period  shift_days
-0  SRM-USD     0.159026     2y           3
-1  STX-USD     0.130272     2y           3
+0  SRM-USD     0.159064     2y           3
+1  STX-USD     0.130037     2y           3
 2    ^N225     0.126369     2y           3
 
 --- Analysis for Period: 2y with Shift of 4 day(s) ---
       Ticker  Correlation period  shift_days
-0   NEAR-USD     0.179398     2y           4
-1  SUSHI-USD     0.169583     2y           4
-2   AAVE-USD     0.164029     2y           4
+0   NEAR-USD     0.179196     2y           4
+1  SUSHI-USD     0.169122     2y           4
+2   AAVE-USD     0.163934     2y           4
 
 --- Analysis for Period: 2y with Shift of 5 day(s) ---
     Ticker  Correlation period  shift_days
-0  STX-USD     0.199001     2y           5
-1  RAY-USD     0.184976     2y           5
-2  XRP-USD     0.175202     2y           5
+0  STX-USD     0.198869     2y           5
+1  RAY-USD     0.184016     2y           5
+2  XRP-USD     0.175214     2y           5
 
 --- Analysis for Period: 2y with Shift of 6 day(s) ---
      Ticker  Correlation period  shift_days
-0  ALGO-USD     0.318837     2y           6
-1       XLK     0.315777     2y           6
-2       EWY     0.282685     2y           6
+0  ALGO-USD     0.316531     2y           6
+1       XLK     0.314442     2y           6
+2       EWY     0.282036     2y           6
 
 --- Analysis for Period: 2y with Shift of 7 day(s) ---
   Ticker  Correlation period  shift_days
-0    XLU     0.094004     2y           7
-1    XLU     0.094004     2y           7
-2    XLP     0.093369     2y           7
+0    XLU     0.093726     2y           7
+1    XLU     0.093725     2y           7
+2    XLP     0.093440     2y           7
 
 --- Analysis for Period: 3y with Shift of 1 day(s) ---
   Ticker  Correlation period  shift_days
-0  ^AXJO     0.184232     3y           1
-1  ^AORD     0.182847     3y           1
-2  ^SSMI     0.128330     3y           1
+0  ^AXJO     0.188662     3y           1
+1  ^AORD     0.187550     3y           1
+2  ^SSMI     0.124286     3y           1
 
 --- Analysis for Period: 3y with Shift of 2 day(s) ---
   Ticker  Correlation period  shift_days
-0  ^NZ50     0.135385     3y           2
-1  ^AXJO     0.087615     3y           2
-2  ^AORD     0.086253     3y           2
+0  ^NZ50     0.129431     3y           2
+1  ^AXJO     0.089091     3y           2
+2  ^AORD     0.088213     3y           2
 
 --- Analysis for Period: 3y with Shift of 3 day(s) ---
     Ticker  Correlation period  shift_days
-0    ^KLSE     0.092273     3y           3
-1  SRM-USD     0.090344     3y           3
-2  TRX-USD     0.054259     3y           3
+0  SRM-USD     0.094452     3y           3
+1    ^KLSE     0.092349     3y           3
+2  TRX-USD     0.054961     3y           3
 
 --- Analysis for Period: 3y with Shift of 4 day(s) ---
      Ticker  Correlation period  shift_days
-0  NEAR-USD     0.161051     3y           4
-1   CRV-USD     0.133260     3y           4
-2  AAVE-USD     0.131428     3y           4
+0  NEAR-USD     0.157354     3y           4
+1   CRV-USD     0.129373     3y           4
+2  AAVE-USD     0.124594     3y           4
 
 --- Analysis for Period: 3y with Shift of 5 day(s) ---
     Ticker  Correlation period  shift_days
-0  HNT-USD     0.197815     3y           5
-1     INDA     0.114501     3y           5
-2  RAY-USD     0.108820     3y           5
+0  HNT-USD     0.200100     3y           5
+1     INDA     0.112494     3y           5
+2  RAY-USD     0.105782     3y           5
 
 --- Analysis for Period: 3y with Shift of 6 day(s) ---
   Ticker  Correlation period  shift_days
-0    SCZ     0.238441     3y           6
-1    EWY     0.235990     3y           6
-2   ARKK     0.235374     3y           6
+0    SCZ     0.229796     3y           6
+1   ARKK     0.226862     3y           6
+2    EWY     0.226410     3y           6
 
 --- Analysis for Period: 3y with Shift of 7 day(s) ---
       Ticker  Correlation period  shift_days
-0  WAVES-USD     0.107100     3y           7
-1    ZRX-USD     0.093574     3y           7
-2    SOL-USD     0.090088     3y           7
+0  WAVES-USD     0.113246     3y           7
+1    ZRX-USD     0.100549     3y           7
+2    SOL-USD     0.096522     3y           7
