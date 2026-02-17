@@ -125,7 +125,7 @@
   Ticker  Correlation period  shift_days
 0  ^NZ50     0.209805    6mo           7
 1  ^AXJO     0.183244    6mo           7
-2    IEF     0.169341    6mo           7
+2    IEF     0.169342    6mo           7
 
 --- Analysis for Period: 1y with Shift of 1 day(s) ---
   Ticker  Correlation period  shift_days
@@ -136,8 +136,8 @@
 --- Analysis for Period: 1y with Shift of 2 day(s) ---
   Ticker  Correlation period  shift_days
 0  ^KLSE     0.692976     1y           2
-1    TLT     0.608427     1y           2
-2    TLT     0.608424     1y           2
+1    TLT     0.608419     1y           2
+2    TLT     0.608417     1y           2
 
 --- Analysis for Period: 1y with Shift of 3 day(s) ---
     Ticker  Correlation period  shift_days
@@ -160,14 +160,14 @@
 --- Analysis for Period: 1y with Shift of 6 day(s) ---
   Ticker  Correlation period  shift_days
 0  ^IBEX     0.989874     1y           6
-1    XLV     0.891071     1y           6
-2    XLV     0.891058     1y           6
+1    XLV     0.891074     1y           6
+2    XLV     0.891063     1y           6
 
 --- Analysis for Period: 1y with Shift of 7 day(s) ---
     Ticker  Correlation period  shift_days
 0  MKR-USD     0.895736     1y           7
-1     ICLN     0.869801     1y           7
-2     ICLN     0.869801     1y           7
+1     ICLN     0.869799     1y           7
+2     ICLN     0.869799     1y           7
 
 --- Analysis for Period: 2y with Shift of 1 day(s) ---
    Ticker  Correlation period  shift_days
@@ -207,48 +207,48 @@
 
 --- Analysis for Period: 2y with Shift of 7 day(s) ---
   Ticker  Correlation period  shift_days
-0    XLU     0.094004     2y           7
+0    XLU     0.094005     2y           7
 1    XLU     0.094004     2y           7
-2    XLP     0.093369     2y           7
+2    XLP     0.093366     2y           7
 
 --- Analysis for Period: 3y with Shift of 1 day(s) ---
   Ticker  Correlation period  shift_days
-0  ^AXJO     0.184232     3y           1
-1  ^AORD     0.182847     3y           1
-2  ^SSMI     0.128330     3y           1
+0  ^AXJO     0.187178     3y           1
+1  ^AORD     0.186422     3y           1
+2  ^SSMI     0.127598     3y           1
 
 --- Analysis for Period: 3y with Shift of 2 day(s) ---
-  Ticker  Correlation period  shift_days
-0  ^NZ50     0.135385     3y           2
-1  ^AXJO     0.087615     3y           2
-2  ^AORD     0.086253     3y           2
+    Ticker  Correlation period  shift_days
+0    ^NZ50     0.131795     3y           2
+1      XLP     0.091100     3y           2
+2  HNT-USD     0.087118     3y           2
 
 --- Analysis for Period: 3y with Shift of 3 day(s) ---
     Ticker  Correlation period  shift_days
-0    ^KLSE     0.092273     3y           3
-1  SRM-USD     0.090344     3y           3
-2  TRX-USD     0.054259     3y           3
+0    ^KLSE     0.095066     3y           3
+1  SRM-USD     0.087419     3y           3
+2  TRX-USD     0.053930     3y           3
 
 --- Analysis for Period: 3y with Shift of 4 day(s) ---
      Ticker  Correlation period  shift_days
-0  NEAR-USD     0.161051     3y           4
-1   CRV-USD     0.133260     3y           4
-2  AAVE-USD     0.131428     3y           4
+0  NEAR-USD     0.165354     3y           4
+1   CRV-USD     0.139361     3y           4
+2  AAVE-USD     0.137245     3y           4
 
 --- Analysis for Period: 3y with Shift of 5 day(s) ---
     Ticker  Correlation period  shift_days
-0  HNT-USD     0.197815     3y           5
-1     INDA     0.114501     3y           5
-2  RAY-USD     0.108820     3y           5
+0  HNT-USD     0.205117     3y           5
+1  RAY-USD     0.114127     3y           5
+2     INDA     0.102505     3y           5
 
 --- Analysis for Period: 3y with Shift of 6 day(s) ---
   Ticker  Correlation period  shift_days
-0    SCZ     0.238441     3y           6
-1    EWY     0.235990     3y           6
-2   ARKK     0.235374     3y           6
+0    EWY     0.249865     3y           6
+1   ARKK     0.249316     3y           6
+2    SCZ     0.245605     3y           6
 
 --- Analysis for Period: 3y with Shift of 7 day(s) ---
       Ticker  Correlation period  shift_days
-0  WAVES-USD     0.107100     3y           7
-1    ZRX-USD     0.093574     3y           7
-2    SOL-USD     0.090088     3y           7
+0  WAVES-USD     0.109024     3y           7
+1    ZRX-USD     0.093484     3y           7
+2    XRP-USD     0.085976     3y           7

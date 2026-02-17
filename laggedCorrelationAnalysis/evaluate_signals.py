@@ -52,7 +52,7 @@ def fetch_next_close(t: str) -> Dict[str, float]:
         # if there's no later price in range, return same day (no next day)
         return {
             "date": close_date.isoformat(),
-            "close": float(close_dt["Close"]),
+            "close": float(close_dt["Close"].iloc[0]),  # FIX 1: Added .iloc[0]
             "next_date": None,
             "next_close": None,
         }
@@ -60,9 +60,9 @@ def fetch_next_close(t: str) -> Dict[str, float]:
     next_date = pd.to_datetime(later["date"].iat[0]).date()
     return {
         "date": close_date.isoformat(),
-        "close": float(close_dt["Close"]),
+        "close": float(close_dt["Close"].iloc[0]),  # FIX 1: Added .iloc[0]
         "next_date": next_date.isoformat(),
-        "next_close": float(next_row["Close"]),
+        "next_close": float(next_row["Close"].iloc[0]),  # FIX 1: Added .iloc[0]
     }
 
 
@@ -99,15 +99,29 @@ def evaluate_batch(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def summarize_results(res_df: pd.DataFrame) -> Dict:
-    ok = res_df[res_df["correct"] == True]
-    nok = res_df[res_df["correct"] == False]
-    total = len(res_df)
+    # FIX 2: Filter out rows with errors before checking 'correct' column
+    valid_results = res_df[~res_df.get("error", pd.Series([False]*len(res_df))).notna()]
+    
+    if valid_results.empty or "correct" not in valid_results.columns:
+        return {
+            "total": len(res_df),
+            "correct": 0,
+            "accuracy_pct": 0.0,
+            "avg_return": 0.0,
+            "avg_return_correct": 0.0,
+            "avg_return_incorrect": 0.0,
+            "cumulative_pnl": 0.0,
+        }
+    
+    ok = valid_results[valid_results["correct"] == True]
+    nok = valid_results[valid_results["correct"] == False]
+    total = len(valid_results)
     correct = len(ok)
     accuracy = float(correct) / total * 100 if total > 0 else 0.0
-    avg_return = float(res_df["return"].mean()) if "return" in res_df else 0.0
+    avg_return = float(valid_results["return"].mean()) if "return" in valid_results else 0.0
     avg_return_correct = float(ok["return"].mean()) if not ok.empty else 0.0
     avg_return_incorrect = float(nok["return"].mean()) if not nok.empty else 0.0
-    pnl = res_df["return"].sum()  # assume 1 unit per decision
+    pnl = valid_results["return"].sum()  # assume 1 unit per decision
     return {
         "total": total,
         "correct": correct,
