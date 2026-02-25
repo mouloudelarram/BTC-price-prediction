@@ -25,6 +25,7 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, List, Optional
 
+from matplotlib.pylab import rand
 import pandas as pd
 import requests
 
@@ -108,7 +109,7 @@ def fetch_next_close(t: str) -> Dict:
         dict with keys: date, close, next_date, next_close
     """
     dt = datetime.fromisoformat(t).date()
-    start = (dt - timedelta(days=1)).isoformat()
+    start = (dt - timedelta(days=0)).isoformat()
     end = (dt + timedelta(days=7)).isoformat()
 
     df = fetch_klines(start, end)
@@ -281,6 +282,32 @@ def main():
     else:
         return res["correct"].iat[0] if "correct" in res.columns else None
 
+# ---------------------------------------------------------------------------
+# test random dicisions
+# ---------------------------------------------------------------------------
+# generate random decisions for the past n days and evaluate them to see how the model would have performed historically. 
+# This can help identify any biases or patterns in the decision-making process and provide insights for further improvements.
+def test_random_decisions(days: int = 30, default_decision: str = None):
+    today = datetime.now().date() 
+    yesterday = today - timedelta(days=1)
+    
+    records = []
+    # today decison not included
+    for i in range(days):
+        date = (yesterday - timedelta(days=i)).isoformat()
+        if not default_decision:
+            decision = "BUY" if rand() > 0.5 else "SELL"
+        else:
+            decision = default_decision
+       
+        records.append({"date": date, "decision": decision})
+    df = pd.DataFrame(records)
+    # print(df)
+    res = evaluate_batch(df)
+    summary = summarize_results(res)
+    print("\n=== Random Decisions Test Summary ===")
+    for k, v in summary.items():
+        print(f"  {k}: {v}")
 
 if __name__ == "__main__":
     result = main()

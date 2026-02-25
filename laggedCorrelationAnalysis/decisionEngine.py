@@ -108,4 +108,7 @@ class BTCAutoTraderV3:
 if __name__ == "__main__":
     PATH = "OutputLaggedCorrelationAnalysis/lagged_correlation_output_summary.txt"
     engine = BTCAutoTraderV3(PATH)
-    print(json.dumps(engine.run(), indent=4))
+    result = engine.run()
+    # json = json.dumps(result, indent=4)
+    # print signal 
+    print(result["signal"])

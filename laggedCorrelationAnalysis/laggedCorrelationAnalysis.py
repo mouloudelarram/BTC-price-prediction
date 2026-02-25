@@ -129,7 +129,7 @@ def btc_lagged_correlation_analysis(period="1y", shift_days=1, plot=False):
     top_3['shift_days'] = shift_days
     return top_3
 
-if __name__ == "__main__":
+def main():
     periods = ["1mo", "3mo", "6mo", "1y", "2y", "3y"]
     shift_days = 1  # You can adjust this to 2, 3, etc. for different lags
     # prepare output directories and rotate existing summary into OutputLaggedCorrelationAnalysis/Old
@@ -159,6 +159,9 @@ if __name__ == "__main__":
             top_3 = btc_lagged_correlation_analysis(period=period, shift_days=i)
             with open("OutputLaggedCorrelationAnalysis/lagged_correlation_output_summary.txt", "a") as f:
                 f.write(top_3.to_string())
-    
-    
-
+                
+    # return summary_path file containing all the results for decision engine to read
+    return summary_path
+        
+if __name__ == "__main__":
+    main()
