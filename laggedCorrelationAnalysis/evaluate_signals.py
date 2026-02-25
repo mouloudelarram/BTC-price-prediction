@@ -1,80 +1,174 @@
 """Evaluate previously-taken BUY/SELL decisions against BTC price movement.
 
+Uses real-time BTC/USDT data from Binance public REST API (no API key required).
+
 Usage:
   - Evaluate a single decision:
       python evaluate_signals.py --date 2026-02-14 --decision BUY
 
   - Evaluate a CSV of decisions (columns: date,decision[,label]):
       python evaluate_signals.py --file decisions.csv
+      
+  - Optional JSON output:
+      python evaluate_signals.py --date 2026-02-14 --decision BUY --output result.json
 
 The script compares the close price on the decision date with the next
-available BTC close (typically 'today') and reports whether the decision
-was correct (BUY -> price up, SELL -> price down), percent return, and
-aggregate statistics for multiple decisions.
+available BTC close and reports whether the decision was correct
+(BUY -> price up, SELL -> price down), percent return, and aggregate
+statistics for multiple decisions.
 """
 from __future__ import annotations
 
 import argparse
-from datetime import datetime, timedelta
+import time
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 import pandas as pd
-import yfinance as yf
+import requests
+
+# ---------------------------------------------------------------------------
+# Binance REST helpers
+# ---------------------------------------------------------------------------
+
+BINANCE_BASE = "https://api.binance.com"
+SYMBOL = "BTCUSDT"
+INTERVAL = "1d"
 
 
-def fetch_next_close(t: str) -> Dict[str, float]:
-    """Fetch BTC close for date t and the next available trading day.
+def _date_to_ms(date_str: str) -> int:
+    """Convert 'YYYY-MM-DD' to UTC midnight milliseconds (Binance open time)."""
+    dt = datetime.fromisoformat(date_str).replace(tzinfo=timezone.utc)
+    return int(dt.timestamp() * 1000)
 
-    t: date string 'YYYY-MM-DD'
-    Returns dict with 'date', 'close', 'next_date', 'next_close'.
+
+def fetch_klines(start_date: str, end_date: str) -> pd.DataFrame:
+    """Fetch daily OHLCV klines for BTCUSDT from Binance between two dates (inclusive).
+
+    Args:
+        start_date: 'YYYY-MM-DD'
+        end_date:   'YYYY-MM-DD'
+
+    Returns:
+        DataFrame with columns: open_time, open, high, low, close, volume, date
+    """
+    start_ms = _date_to_ms(start_date)
+    # end_date +1 day so we include the end_date candle (Binance endTime is exclusive)
+    end_dt = datetime.fromisoformat(end_date).replace(tzinfo=timezone.utc) + timedelta(days=2)
+    end_ms = int(end_dt.timestamp() * 1000)
+
+    url = f"{BINANCE_BASE}/api/v3/klines"
+    params = {
+        "symbol": SYMBOL,
+        "interval": INTERVAL,
+        "startTime": start_ms,
+        "endTime": end_ms,
+        "limit": 100,
+    }
+
+    resp = requests.get(url, params=params, timeout=10)
+    resp.raise_for_status()
+    raw = resp.json()
+
+    if not raw:
+        return pd.DataFrame()
+
+    # Binance kline fields: [open_time, open, high, low, close, volume, ...]
+    cols = ["open_time", "open", "high", "low", "close", "volume",
+            "close_time", "quote_asset_volume", "num_trades",
+            "taker_buy_base", "taker_buy_quote", "ignore"]
+    df = pd.DataFrame(raw, columns=cols)
+    df["open_time"] = pd.to_numeric(df["open_time"])
+    df["close"] = pd.to_numeric(df["close"])
+    df["open"] = pd.to_numeric(df["open"])
+    df["date"] = pd.to_datetime(df["open_time"], unit="ms", utc=True).dt.date
+    return df[["open_time", "date", "open", "high", "low", "close", "volume"]]
+
+
+def get_current_price() -> float:
+    """Fetch the latest BTC/USDT price from Binance ticker."""
+    url = f"{BINANCE_BASE}/api/v3/ticker/price"
+    resp = requests.get(url, params={"symbol": SYMBOL}, timeout=10)
+    resp.raise_for_status()
+    return float(resp.json()["price"])
+
+
+# ---------------------------------------------------------------------------
+# Core evaluation logic
+# ---------------------------------------------------------------------------
+
+def fetch_next_close(t: str) -> Dict:
+    """Fetch BTC close for date t and the next available trading day from Binance.
+
+    Args:
+        t: date string 'YYYY-MM-DD'
+
+    Returns:
+        dict with keys: date, close, next_date, next_close
     """
     dt = datetime.fromisoformat(t).date()
-    start = dt - timedelta(days=1)
-    end = dt + timedelta(days=7)
-    df = yf.download("BTC-USD", start=start.isoformat(), end=end.isoformat(), progress=False)
+    start = (dt - timedelta(days=1)).isoformat()
+    end = (dt + timedelta(days=7)).isoformat()
+
+    df = fetch_klines(start, end)
     if df.empty:
         raise RuntimeError(f"No price data for BTC around {t}")
 
-    # find close on or after dt
-    df = df.reset_index()
-    # Normalize to python date for safe scalar comparisons
-    df["date"] = pd.to_datetime(df["Date"]).dt.date
     # find last available close on or before requested date
     prior = df[df["date"].apply(lambda x: x <= dt)]
     if prior.empty:
         raise RuntimeError(f"No BTC close on or before {t}")
-    close_dt = prior.iloc[-1]
-    close_date = pd.to_datetime(prior["date"].iat[-1]).date()
+
+    close_date = prior["date"].iat[-1]
+    close_price = float(prior["close"].iat[-1])
+
     # find next available close after that date
     later = df[df["date"].apply(lambda x: x > close_date)]
+
     if later.empty:
-        # if there's no later price in range, return same day (no next day)
+        # If the decision date is today or very recent, use live ticker as "next close"
+        today = datetime.now(timezone.utc).date()
+        if close_date >= today - timedelta(days=1):
+            live_price = get_current_price()
+            return {
+                "date": close_date.isoformat(),
+                "close": close_price,
+                "next_date": today.isoformat(),
+                "next_close": live_price,
+                "live": True,
+            }
         return {
             "date": close_date.isoformat(),
-            "close": float(close_dt["Close"].iloc[0]),  # FIX 1: Added .iloc[0]
+            "close": close_price,
             "next_date": None,
             "next_close": None,
         }
-    next_row = later.iloc[0]
-    next_date = pd.to_datetime(later["date"].iat[0]).date()
+
+    next_date = later["date"].iat[0]
+    next_close = float(later["close"].iat[0])
     return {
         "date": close_date.isoformat(),
-        "close": float(close_dt["Close"].iloc[0]),  # FIX 1: Added .iloc[0]
+        "close": close_price,
         "next_date": next_date.isoformat(),
-        "next_close": float(next_row["Close"].iloc[0]),  # FIX 1: Added .iloc[0]
+        "next_close": next_close,
+        "live": False,
     }
 
 
 def evaluate_single(decision_date: str, decision: str) -> Dict:
     decision = decision.upper()
+    if decision not in ("BUY", "SELL"):
+        return {"decision_date": decision_date, "decision": decision, "error": "decision must be BUY or SELL"}
+
     rec = fetch_next_close(decision_date)
     if rec["next_close"] is None:
         return {"decision_date": decision_date, "decision": decision, "error": "no next close available"}
 
     ret = (rec["next_close"] - rec["close"]) / rec["close"]
     correct = (decision == "BUY" and ret > 0) or (decision == "SELL" and ret < 0)
-    return {
+
+    result = {
         "decision_date": rec["date"],
         "decision": decision,
         "price_then": rec["close"],
@@ -83,58 +177,76 @@ def evaluate_single(decision_date: str, decision: str) -> Dict:
         "return": float(ret),
         "correct": bool(correct),
     }
+    if rec.get("live"):
+        result["note"] = "next_close is live Binance ticker price"
+    return result
 
 
 def evaluate_batch(df: pd.DataFrame) -> pd.DataFrame:
     records = []
     for _, row in df.iterrows():
-        date = str(row["date"]) if "date" in row else str(row[0])
-        decision = str(row["decision"]) if "decision" in row else str(row[1])
+        date = str(row["date"])
+        decision = str(row["decision"])
         try:
             out = evaluate_single(date, decision)
         except Exception as e:
             out = {"decision_date": date, "decision": decision, "error": str(e)}
         records.append(out)
+        time.sleep(0.1)  # gentle rate-limiting for Binance API
     return pd.DataFrame(records)
 
 
 def summarize_results(res_df: pd.DataFrame) -> Dict:
-    # FIX 2: Filter out rows with errors before checking 'correct' column
-    valid_results = res_df[~res_df.get("error", pd.Series([False]*len(res_df))).notna()]
-    
-    if valid_results.empty or "correct" not in valid_results.columns:
+    """Compute aggregate statistics, excluding errored rows."""
+    if "error" in res_df.columns:
+        valid = res_df[res_df["error"].isna()].copy()
+    else:
+        valid = res_df.copy()
+
+    if valid.empty or "correct" not in valid.columns:
         return {
             "total": len(res_df),
+            "valid": 0,
+            "errors": len(res_df),
             "correct": 0,
             "accuracy_pct": 0.0,
-            "avg_return": 0.0,
-            "avg_return_correct": 0.0,
-            "avg_return_incorrect": 0.0,
+            "avg_return_pct": 0.0,
+            "avg_return_correct_pct": 0.0,
+            "avg_return_incorrect_pct": 0.0,
             "cumulative_pnl": 0.0,
         }
-    
-    ok = valid_results[valid_results["correct"] == True]
-    nok = valid_results[valid_results["correct"] == False]
-    total = len(valid_results)
+
+    ok = valid[valid["correct"] == True]
+    nok = valid[valid["correct"] == False]
+    total = len(valid)
     correct = len(ok)
     accuracy = float(correct) / total * 100 if total > 0 else 0.0
-    avg_return = float(valid_results["return"].mean()) if "return" in valid_results else 0.0
-    avg_return_correct = float(ok["return"].mean()) if not ok.empty else 0.0
-    avg_return_incorrect = float(nok["return"].mean()) if not nok.empty else 0.0
-    pnl = valid_results["return"].sum()  # assume 1 unit per decision
+    avg_return = float(valid["return"].mean()) * 100 if "return" in valid.columns else 0.0
+    avg_return_correct = float(ok["return"].mean()) * 100 if not ok.empty else 0.0
+    avg_return_incorrect = float(nok["return"].mean()) * 100 if not nok.empty else 0.0
+    pnl = float(valid["return"].sum())
+
     return {
-        "total": total,
+        "total": len(res_df),
+        "valid": total,
+        "errors": len(res_df) - total,
         "correct": correct,
-        "accuracy_pct": accuracy,
-        "avg_return": avg_return,
-        "avg_return_correct": avg_return_correct,
-        "avg_return_incorrect": avg_return_incorrect,
-        "cumulative_pnl": float(pnl),
+        "accuracy_pct": round(accuracy, 2),
+        "avg_return_pct": round(avg_return, 4),
+        "avg_return_correct_pct": round(avg_return_correct, 4),
+        "avg_return_incorrect_pct": round(avg_return_incorrect, 4),
+        "cumulative_pnl": round(pnl, 6),
     }
 
 
+# ---------------------------------------------------------------------------
+# CLI entry point
+# ---------------------------------------------------------------------------
+
 def main():
-    p = argparse.ArgumentParser(description="Evaluate BTC BUY/SELL decisions against next-day BTC price movement.")
+    p = argparse.ArgumentParser(
+        description="Evaluate BTC BUY/SELL decisions using real-time Binance data."
+    )
     p.add_argument("--file", "-f", help="CSV file with columns date,decision", type=str)
     p.add_argument("--date", "-d", help="Single decision date YYYY-MM-DD", type=str)
     p.add_argument("--decision", help="BUY or SELL (used with --date)", type=str)
@@ -151,23 +263,25 @@ def main():
     else:
         raise SystemExit("Provide --file or both --date and --decision")
 
+    # Pretty-print results
+    print("\n=== Evaluation Results ===")
     print(res.to_string(index=False))
+
     summary = summarize_results(res)
-    print("\nSummary:")
+    print("\n=== Summary ===")
     for k, v in summary.items():
-        print(f"- {k}: {v}")
+        print(f"  {k}: {v}")
 
     if args.output:
-        Path(args.output).write_text(res.to_json(orient="records"), encoding="utf-8")
-        
-    # return True or false for single decision, or summary dict for batch
+        Path(args.output).write_text(res.to_json(orient="records", indent=2), encoding="utf-8")
+        print(f"\nResults saved to {args.output}")
+
     if args.file:
         return summary
     else:
-        return res["correct"].iat[0] if "correct" in res else None   
+        return res["correct"].iat[0] if "correct" in res.columns else None
 
 
 if __name__ == "__main__":
-    print(main())
- 
- # how to run - for single decision: python evaluate_signals.py --date 2026-02-14 --decision BUY
+    result = main()
+    print(f"\nFinal result: {result}")
