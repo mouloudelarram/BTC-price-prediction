@@ -1,4 +1,4 @@
-from time import time
+from time import sleep
 
 
 def monitor():
@@ -17,4 +17,4 @@ if __name__ == "__main__":
     while True:
         monitor()
         # wait for 24 hours before next check
-        time.sleep(24 * 60 * 60)
+        sleep(24 * 60 * 60)
