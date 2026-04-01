@@ -1,1 +1,23 @@
-ollama
+# Crypto Market Mood Analyzer - Dependencies
+# 
+# Install with: pip install -r requirements.txt
+
+# Async HTTP client for Ollama API communication
+aiohttp>=3.8.0
+
+# JSON processing (included in standard library, listed for reference)
+# json - stdlib
+
+# Async utilities (included in standard library, listed for reference)
+# asyncio - stdlib
+
+# Optional but recommended packages
+
+# For enhanced data validation
+pydantic>=2.0.0
+
+# For optional CSV export functionality
+pandas>=2.0.0
+
+# For colored terminal output
+colorama>=0.4.6
