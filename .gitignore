@@ -1,0 +1,157 @@
+# ============================================================================
+# Python
+# ============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+venv/
+ENV/
+env/
+.venv
+env.bak/
+venv.bak/
+
+# Python poetry
+poetry.lock
+
+# ============================================================================
+# IDE / Editor
+# ============================================================================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+.settings/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# ============================================================================
+# Data / Generated Files
+# ============================================================================
+# Logs
+logs/
+*.log
+*.log.*
+
+# Checkpoints and progress tracking
+checkpoints/
+progress_tracker.json
+
+# Data outputs
+output/
+outputs/
+data/output/
+result*/
+results/
+
+# JSON data files (keep raw data if needed, but ignore generated files)
+*_output.json
+*_result.json
+*_summary.json
+
+# Cache files
+.cache/
+*.cache
+
+# ============================================================================
+# Environment Variables
+# ============================================================================
+.env
+.env.local
+.env.*.local
+*.env
+
+# ============================================================================
+# OS Specific
+# ============================================================================
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+.directory
+
+# ============================================================================
+# Project Specific
+# ============================================================================
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints
+
+# Large data directories (if they exist)
+data_sourcing/output/
+scrapedData/
+
+# Test coverage
+.coverage
+htmlcov/
+
+# ============================================================================
+# IDE temporary files
+# ============================================================================
+.tmp/
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pyre type checker
+.pyre/
+
+# Pylint
+.pylintrc
+
+# Black formatter
+.black
+
+# isort
+.isort.cfg
+
+# others
+laggedCorrelationAnalysis/OutputLaggedCorrelationAnalysis/
+mood/scrapper/data_sourcing/output/
+mood/llms/output/
