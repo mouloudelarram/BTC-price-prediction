@@ -165,8 +165,8 @@ LOG_FORMAT = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
 # DATA VALIDATION & PREPROCESSING
 # ============================================================================
 
-REQUIRED_ENTRY_FIELDS = ["text", "timestamp", "platform"]
-"""Fields that must be present in each data entry."""
+REQUIRED_ENTRY_FIELDS = ["timestamp", "platform"]
+"""Fields that must be present in each data entry. Also accepts 'text' or 'content' for text field."""
 
 TEXT_MIN_LENGTH = 10
 """Minimum character count for valid entry text."""

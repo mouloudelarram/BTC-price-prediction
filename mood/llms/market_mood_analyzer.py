@@ -253,7 +253,12 @@ class DataLoader:
         if not all(field in entry for field in config.REQUIRED_ENTRY_FIELDS):
             return None
 
-        text = entry.get("text", "").strip()
+        # Handle both "text" and "content" field names
+        text = entry.get("text") or entry.get("content")
+        if not text or not isinstance(text, str):
+            return None
+        
+        text = text.strip()
 
         # Validate text length
         if len(text) < config.TEXT_MIN_LENGTH or len(text) > config.TEXT_MAX_LENGTH:
