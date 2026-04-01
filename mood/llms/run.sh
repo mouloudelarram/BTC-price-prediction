@@ -537,25 +537,26 @@ main() {
 
         echo ""
         print_status "Results:"
-        if [ -f "output/final_mood_report.json" ]; then
+        if [ -f "output/final_result.json" ]; then
             python3 << 'PYTHON_SCRIPT'
 import json
 try:
-    with open('output/final_mood_report.json') as f:
-        report = json.load(f)
-        mood = report.get('global_mood_score', 'N/A')
-        interpretation = report.get('interpretation', 'N/A')
-        entries = report.get('metadata', {}).get('total_entries_processed', 'N/A')
+    with open('output/final_result.json') as f:
+        result = json.load(f)
+        mood = result.get('global_mood_score', 'N/A')
+        interpretation = result.get('interpretation', 'N/A')
+        entries = result.get('entries_processed', 'N/A')
         print(f"  Global mood score: {mood}")
         print(f"  Interpretation: {interpretation}")
         print(f"  Entries processed: {entries}")
 except:
-    print("  (Could not parse report)")
+    print("  (Could not parse final result)")
 PYTHON_SCRIPT
         fi
 
         echo ""
         print_status "Output files:"
+        [ -f "output/final_result.json" ] && echo "  ✓ output/final_result.json"
         [ -f "output/final_mood_report.json" ] && echo "  ✓ output/final_mood_report.json"
         [ -f "logs/mood_analyzer.log" ] && echo "  ✓ logs/mood_analyzer.log"
         [ -f "checkpoints/progress_tracker.json" ] && echo "  ✓ checkpoints/progress_tracker.json"

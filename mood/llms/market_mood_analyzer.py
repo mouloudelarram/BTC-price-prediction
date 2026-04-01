@@ -676,6 +676,9 @@ class MoodAnalyzer:
         except Exception as e:
             self.logger.error(f"Failed to save report: {e}")
 
+        # Save simplified final result
+        self._save_final_result(report)
+
         # Console output
         self._print_summary(report, elapsed_time)
 
@@ -712,6 +715,24 @@ class MoodAnalyzer:
 
         print(f"\nReport saved to: {self.config.FINAL_REPORT_FILE}")
         print("=" * 70 + "\n")
+
+    def _save_final_result(self, report: Dict[str, Any]) -> None:
+        """Save simplified final result to output/final_result.json."""
+        final_result_file = self.config.OUTPUT_DIR / "final_result.json"
+        
+        final_result = {
+            "global_mood_score": report["global_mood_score"],
+            "interpretation": report["interpretation"],
+            "entries_processed": report["metadata"]["total_entries_processed"],
+            "generated_at": report["metadata"]["generated_at"]
+        }
+        
+        try:
+            with open(final_result_file, "w", encoding="utf-8") as f:
+                json.dump(final_result, f, indent=2, ensure_ascii=False)
+            self.logger.info(f"Final result saved to: {final_result_file}")
+        except Exception as e:
+            self.logger.error(f"Failed to save final result: {e}")
 
 
 # ============================================================================
