@@ -49,12 +49,12 @@ AVAILABLE_MODELS = [
 
 # Platform-to-model mapping: which models analyze which data sources
 MODEL_MAPPING: Dict[str, List[str]] = {
-    "fear_greed": ["llama3.1:latest"],
-    "coindesk": ["llama3.1:latest"],
+    "fear_greed": ["mistral-large-3:675b-cloud"],
+    "coindesk": ["mistral-large-3:675b-cloud"],
     "reddit": ["mistral-large-3:675b-cloud"],
     "truth_social": ["mistral-large-3:675b-cloud"],
-    "binance": ["llama3.1:latest"],
-    "coingecko": ["llama3.1:latest"],
+    "binance": ["mistral-large-3:675b-cloud"],
+    "coingecko": ["mistral-large-3:675b-cloud"],
 }
 """
 Maps each data platform to a list of models for redundancy/ensemble analysis.
