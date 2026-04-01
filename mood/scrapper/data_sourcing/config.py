@@ -52,12 +52,12 @@ SCRAPER_CONFIG = {
     "twitter": {
         "enabled": False,
         "keywords": KEYWORDS,
-        "max_tweets": 50,
+        "max_tweets": 2,
     },
     "reddit": {
         "enabled": True,
         "subreddits": SUBREDDITS,
-        "max_posts_per_subreddit": 50,
+        "max_posts_per_subreddit": 2,
         "include_comments": True,
     },
     "truth_social": {
@@ -85,7 +85,7 @@ SCRAPER_CONFIG = {
                 "description": "Publicly crypto-friendly; may hint at upcoming moves or reinforce bullish sentiment"
             }
         ],
-        "max_posts_per_account": 20,
+        "max_posts_per_account": 2,
         "filters": {
             "keywords": [
                 "bitcoin",
@@ -108,20 +108,20 @@ SCRAPER_CONFIG = {
     "binance": {
         "enabled": True,
         "symbols": ["BTCUSDT", "ETHUSDT"],
-        "max_data_points": 30,
+        "max_data_points": 2,
     },
     "coingecko": {
         "enabled": True,
         "coins": ["bitcoin", "ethereum"],
-        "max_data_points": 20,
+        "max_data_points": 2,
     },
     "fear_greed": {
         "enabled": True,
-        "limit": 70,
+        "limit": 2,
     },
     "coindesk": {
         "enabled": True,
-        "max_articles": 20,
+        "max_articles": 2,
     },
     "polymarket": {
         "enabled": False,
