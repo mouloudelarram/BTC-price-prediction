@@ -1,0 +1,34 @@
+[
+  {
+    "platform": "binance",
+    "content": "BTC Price: $66624.58",
+    "author": "binance_api",
+    "timestamp": "2026-03-30 23:04:18.213496",
+    "engagement": {},
+    "url": "https://www.binance.com/en/trade/BTCUSDT",
+    "metadata": {
+      "symbol": "BTCUSDT",
+      "type": "price",
+      "data": {
+        "symbol": "BTCUSDT",
+        "price": "66624.58000000"
+      }
+    }
+  },
+  {
+    "platform": "binance",
+    "content": "BTC Price: $2022.46",
+    "author": "binance_api",
+    "timestamp": "2026-03-30 23:04:18.678557",
+    "engagement": {},
+    "url": "https://www.binance.com/en/trade/ETHUSDT",
+    "metadata": {
+      "symbol": "ETHUSDT",
+      "type": "price",
+      "data": {
+        "symbol": "ETHUSDT",
+        "price": "2022.46000000"
+      }
+    }
+  }
+]

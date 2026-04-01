@@ -1,0 +1,19 @@
+[
+  {
+    "platform": "fear_greed",
+    "content": "Fear & Greed Index: 8/100 (Extreme Fear)",
+    "author": "alternative_me",
+    "timestamp": "2026-03-30 02:00:00",
+    "engagement": {},
+    "url": "https://alternative.me/crypto/fear-and-greed-index/",
+    "metadata": {
+      "type": "sentiment_index",
+      "data": {
+        "value": "8",
+        "value_classification": "Extreme Fear",
+        "timestamp": "1774828800",
+        "time_until_update": "10543"
+      }
+    }
+  }
+]

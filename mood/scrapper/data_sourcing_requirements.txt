@@ -1,0 +1,13 @@
+# Core dependencies (pre-built wheels for Windows)
+loguru>=0.7.0
+pydantic>=2.5.0
+tenacity>=8.2.0
+
+# Browser automation (CRITICAL for Twitter scraper)
+playwright>=1.40.0
+
+# HTTP client
+httpx>=0.25.0
+
+# Alternative: use async-only dependencies
+aiohttp>=3.9.0
