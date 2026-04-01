@@ -1,53 +1,24 @@
-2026-04-01 12:58:09,214 - MoodAnalyzer - INFO - MoodAnalyzer initialized
-2026-04-01 12:58:09,215 - MoodAnalyzer - INFO - ======================================================================
-2026-04-01 12:58:09,215 - MoodAnalyzer - INFO - STARTING CRYPTO MARKET MOOD ANALYSIS
-2026-04-01 12:58:09,215 - MoodAnalyzer - INFO - ======================================================================
-2026-04-01 12:58:09,216 - MoodAnalyzer - INFO - Loaded 7 entries from coingecko_20260401_104434.json
-2026-04-01 12:58:09,216 - MoodAnalyzer - INFO - Loaded 27 entries from coindesk_20260401_100616.json
-2026-04-01 12:58:09,217 - MoodAnalyzer - INFO - Loaded 28 entries from fear_greed_20260401_100616.json
-2026-04-01 12:58:09,219 - MoodAnalyzer - INFO - Loaded 178 entries from reddit_20260330_230554.json
-2026-04-01 12:58:09,221 - MoodAnalyzer - INFO - Loaded 328 entries from reddit_20260401_100616.json
-2026-04-01 12:58:09,221 - MoodAnalyzer - INFO - Loaded 359 entries from truth_social_20260401_104434.json
-2026-04-01 12:58:09,221 - MoodAnalyzer - INFO - Loaded 361 entries from binance_20260401_100616.json
-2026-04-01 12:58:09,221 - MoodAnalyzer - INFO - Loaded 363 entries from binance_20260330_230554.json
-2026-04-01 12:58:09,223 - MoodAnalyzer - INFO - Loaded 370 entries from coingecko_20260330_230554.json
-2026-04-01 12:58:09,223 - MoodAnalyzer - INFO - Loaded 371 entries from fear_greed_20260330_230554.json
-2026-04-01 12:58:09,224 - MoodAnalyzer - INFO - Loaded 521 entries from reddit_20260401_104434.json
-2026-04-01 12:58:09,225 - MoodAnalyzer - INFO - Loaded 581 entries from truth_social_20260401_100616.json
-2026-04-01 12:58:09,225 - MoodAnalyzer - INFO - Loaded 582 entries from fear_greed_20260401_104434.json
-2026-04-01 12:58:09,225 - MoodAnalyzer - INFO - Loaded 602 entries from coindesk_20260330_230554.json
-2026-04-01 12:58:09,225 - MoodAnalyzer - INFO - Loaded 604 entries from binance_20260401_104434.json
-2026-04-01 12:58:09,227 - MoodAnalyzer - INFO - Loaded 611 entries from coingecko_20260401_100616.json
-2026-04-01 12:58:09,227 - MoodAnalyzer - INFO - Loaded 631 entries from coindesk_20260401_104434.json
-2026-04-01 12:58:09,228 - MoodAnalyzer - INFO - Loaded 691 entries from truth_social_20260330_230554.json
-2026-04-01 12:58:09,246 - MoodAnalyzer - INFO - Loaded 691 raw entries
-2026-04-01 12:58:09,246 - MoodAnalyzer - INFO - Processing 689 new/updated entries
-2026-04-01 12:58:09,246 - MoodAnalyzer - INFO - Resuming from checkpoint: {'total_processed': 0, 'total_failed': 0, 'start_time': '2026-04-01T12:58:09.214965', 'last_updated': '2026-04-01T12:58:09.214971'}
-2026-04-01 12:58:09,246 - MoodAnalyzer - INFO - Processing batch 1/138 (5 entries)
-2026-04-01 12:58:25,344 - MoodAnalyzer - INFO - Processing batch 2/138 (5 entries)
-2026-04-01 12:58:34,280 - MoodAnalyzer - INFO - Processing batch 3/138 (5 entries)
-2026-04-01 13:02:47,294 - MoodAnalyzer - INFO - Loaded checkpoint with 10 processed entries
-2026-04-01 13:02:47,294 - MoodAnalyzer - INFO - MoodAnalyzer initialized
-2026-04-01 13:02:47,294 - MoodAnalyzer - INFO - ======================================================================
-2026-04-01 13:02:47,295 - MoodAnalyzer - INFO - STARTING CRYPTO MARKET MOOD ANALYSIS
-2026-04-01 13:02:47,295 - MoodAnalyzer - INFO - ======================================================================
-2026-04-01 13:02:47,295 - MoodAnalyzer - INFO - Loaded 2 entries from coindesk_20260401_130222.json
-2026-04-01 13:02:47,295 - MoodAnalyzer - INFO - Loaded 3 entries from fear_greed_20260401_130222.json
-2026-04-01 13:02:47,295 - MoodAnalyzer - INFO - Loaded 9 entries from truth_social_20260401_130222.json
-2026-04-01 13:02:47,296 - MoodAnalyzer - INFO - Loaded 19 entries from reddit_20260401_130222.json
-2026-04-01 13:02:47,296 - MoodAnalyzer - INFO - Loaded 21 entries from binance_20260401_130222.json
-2026-04-01 13:02:47,297 - MoodAnalyzer - INFO - Loaded 28 entries from coingecko_20260401_130222.json
-2026-04-01 13:02:47,298 - MoodAnalyzer - INFO - Loaded 28 raw entries
-2026-04-01 13:02:47,298 - MoodAnalyzer - INFO - Processing 28 new/updated entries
-2026-04-01 13:02:47,298 - MoodAnalyzer - INFO - Resuming from checkpoint: {'total_processed': 10, 'total_failed': 0, 'start_time': '2026-04-01T12:58:09.214965', 'last_updated': '2026-04-01T12:58:34.280295'}
-2026-04-01 13:02:47,299 - MoodAnalyzer - INFO - Processing batch 1/6 (5 entries)
-2026-04-01 13:02:54,653 - MoodAnalyzer - INFO - Processing batch 2/6 (5 entries)
-2026-04-01 13:03:02,302 - MoodAnalyzer - INFO - Processing batch 3/6 (5 entries)
-2026-04-01 13:03:06,786 - MoodAnalyzer - INFO - Processing batch 4/6 (5 entries)
-2026-04-01 13:03:13,077 - MoodAnalyzer - INFO - Processing batch 5/6 (5 entries)
-2026-04-01 13:03:17,867 - MoodAnalyzer - INFO - Processing batch 6/6 (3 entries)
-2026-04-01 13:03:21,049 - MoodAnalyzer - INFO - Report saved to: output/final_mood_report.json
-2026-04-01 13:03:21,049 - MoodAnalyzer - INFO - Final result saved to: output/final_result.json
-2026-04-01 13:03:21,050 - MoodAnalyzer - INFO - ======================================================================
-2026-04-01 13:03:21,050 - MoodAnalyzer - INFO - ANALYSIS COMPLETE
-2026-04-01 13:03:21,050 - MoodAnalyzer - INFO - ======================================================================
+2026-04-01 13:18:42,183 - MoodAnalyzer - INFO - MoodAnalyzer initialized
+2026-04-01 13:18:42,184 - MoodAnalyzer - INFO - ======================================================================
+2026-04-01 13:18:42,184 - MoodAnalyzer - INFO - STARTING CRYPTO MARKET MOOD ANALYSIS
+2026-04-01 13:18:42,184 - MoodAnalyzer - INFO - ======================================================================
+2026-04-01 13:18:42,184 - MoodAnalyzer - INFO - Loaded 2 entries from coindesk_20260401_130222.json
+2026-04-01 13:18:42,184 - MoodAnalyzer - INFO - Loaded 3 entries from fear_greed_20260401_130222.json
+2026-04-01 13:18:42,184 - MoodAnalyzer - INFO - Loaded 9 entries from truth_social_20260401_130222.json
+2026-04-01 13:18:42,185 - MoodAnalyzer - INFO - Loaded 19 entries from reddit_20260401_130222.json
+2026-04-01 13:18:42,185 - MoodAnalyzer - INFO - Loaded 21 entries from binance_20260401_130222.json
+2026-04-01 13:18:42,186 - MoodAnalyzer - INFO - Loaded 28 entries from coingecko_20260401_130222.json
+2026-04-01 13:18:42,187 - MoodAnalyzer - INFO - Loaded 28 raw entries
+2026-04-01 13:18:42,187 - MoodAnalyzer - INFO - Processing 28 new/updated entries
+2026-04-01 13:18:42,188 - MoodAnalyzer - INFO - Resuming from checkpoint: {'total_processed': 0, 'total_failed': 0, 'start_time': '2026-04-01T13:18:42.183965', 'last_updated': '2026-04-01T13:18:42.183971'}
+2026-04-01 13:18:42,188 - MoodAnalyzer - INFO - Processing batch 1/6 (5 entries)
+2026-04-01 13:18:46,509 - MoodAnalyzer - INFO - Processing batch 2/6 (5 entries)
+2026-04-01 13:18:53,269 - MoodAnalyzer - INFO - Processing batch 3/6 (5 entries)
+2026-04-01 13:18:58,657 - MoodAnalyzer - INFO - Processing batch 4/6 (5 entries)
+2026-04-01 13:19:02,854 - MoodAnalyzer - INFO - Processing batch 5/6 (5 entries)
+2026-04-01 13:19:06,734 - MoodAnalyzer - INFO - Processing batch 6/6 (3 entries)
+2026-04-01 13:19:09,719 - MoodAnalyzer - INFO - Report saved to: output/final_mood_report.json
+2026-04-01 13:19:09,719 - MoodAnalyzer - INFO - Final result saved to: output/final_result.json
+2026-04-01 13:19:09,719 - MoodAnalyzer - INFO - ======================================================================
+2026-04-01 13:19:09,719 - MoodAnalyzer - INFO - ANALYSIS COMPLETE
+2026-04-01 13:19:09,719 - MoodAnalyzer - INFO - ======================================================================
