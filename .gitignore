@@ -154,4 +154,6 @@ dmypy.json
 # others
 laggedCorrelationAnalysis/OutputLaggedCorrelationAnalysis/
 mood/scrapper/data_sourcing/output/
-mood/llms/output/
+mood/llms/old_output/
+mood/llms/old_logs/
+mood/llms/old_checkpoints/
