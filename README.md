@@ -180,5 +180,4 @@ BNMP is designed as a modular intelligence layer for BTC forecasting, combining:
 to produce a structured, API-driven trading signal system.
 
 ## System Architecture
-
-![BNMP Global System Architecture](./architecture-diagrams/BNMP-global-system-architecture.png)
+![BNMP System Architecture](architecture-diagrams/bnmp-architecture.png)
