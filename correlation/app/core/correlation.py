@@ -125,15 +125,18 @@ class CorrelationEngine:
         chunk_size: int = CORRELATION_CHUNK_SIZE,
         max_retries: int = CORRELATION_MAX_RETRIES
     ) -> pd.DataFrame:
-        """Download OHLCV data with retry logic."""
+        """Download OHLCV data with retry logic and individual symbol fallback."""
         parts = []
         backoff = CORRELATION_BACKOFF_MULTIPLIER
+        skipped_symbols = []
 
         for i in range(0, len(tickers), chunk_size):
             batch = tickers[i : i + chunk_size]
             attempt = 0
+            batch_downloaded = False
 
-            while attempt < max_retries:
+            # Try to download batch first
+            while attempt < max_retries and not batch_downloaded:
                 try:
                     logger.debug(f"Downloading batch {i // chunk_size + 1}: {batch[:3]}...")
                     data = yf.download(batch, period=period, threads=False, progress=False)
@@ -146,19 +149,49 @@ class CorrelationEngine:
                     else:
                         closes = data.to_frame() if isinstance(data, pd.Series) else data
 
-                    parts.append(closes)
-                    break
+                    # Check if we got meaningful data
+                    if closes.dropna(axis=1, how='all').shape[1] > 0:
+                        parts.append(closes)
+                        batch_downloaded = True
+                    else:
+                        raise ValueError("No valid data in response")
 
                 except Exception as e:
                     attempt += 1
-                    wait_time = backoff ** attempt
-                    logger.warning(
-                        f"Download error (attempt {attempt}/{max_retries}): {e}. "
-                        f"Retrying in {wait_time:.1f}s..."
-                    )
-                    time.sleep(wait_time)
-            else:
-                logger.error(f"Failed to download after {max_retries} attempts: {batch}")
+                    if attempt < max_retries:
+                        wait_time = backoff ** attempt
+                        logger.warning(
+                            f"Batch download error (attempt {attempt}/{max_retries}): {e}. "
+                            f"Retrying in {wait_time:.1f}s..."
+                        )
+                        time.sleep(wait_time)
+                    else:
+                        logger.debug(f"Batch failed after retries, attempting individual symbols: {batch}")
+                        # Try individual symbols if batch fails
+                        for symbol in batch:
+                            try:
+                                logger.debug(f"Downloading individual symbol: {symbol}")
+                                data = yf.download(symbol, period=period, threads=False, progress=False)
+                                if isinstance(data, pd.Series):
+                                    data = data.to_frame(name=symbol)
+                                elif isinstance(data, pd.DataFrame):
+                                    if 'Close' in data.columns:
+                                        data = data[['Close']].rename(columns={'Close': symbol})
+                                    elif data.shape[1] == 1:
+                                        data.columns = [symbol]
+                                
+                                if not data.dropna().empty:
+                                    parts.append(data)
+                                else:
+                                    skipped_symbols.append(symbol)
+                                    logger.debug(f"Skipped {symbol}: no data available for {period}")
+                            except Exception as se:
+                                skipped_symbols.append(symbol)
+                                logger.debug(f"Skipped {symbol}: {se}")
+                        batch_downloaded = True
+
+        if skipped_symbols:
+            logger.info(f"Skipped symbols ({len(skipped_symbols)}): {skipped_symbols}")
 
         if not parts:
             logger.error("No data downloaded")

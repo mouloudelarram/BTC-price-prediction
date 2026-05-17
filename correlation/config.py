@@ -22,8 +22,8 @@ RESULTS_DIR = PROJECT_ROOT / "results"
 RESULTS_DIR.mkdir(exist_ok=True)
 
 # Correlation Engine Configuration
-CORRELATION_PERIODS = ["1mo", "3mo", "6mo", "1y", "2y", "3y"]
-CORRELATION_MAX_LAG_DAYS = 7
+CORRELATION_PERIODS = ["1mo", "1y"] # ["1mo", "3mo", "6mo", "1y", "2y", "3y"]
+CORRELATION_MAX_LAG_DAYS = 2  #7
 CORRELATION_CHUNK_SIZE = 20
 CORRELATION_MAX_RETRIES = 3
 CORRELATION_BACKOFF_MULTIPLIER = 1.7
@@ -49,19 +49,18 @@ SIGNAL_SELL_THRESHOLD = -2.0
 # Asset Lists for Correlation Analysis
 OTHER_CRYPTOS = [
     'ETH-USD', 'ADA-USD', 'XRP-USD', 'SOL-USD', 'DOGE-USD', 'LTC-USD', 'BCH-USD',
-    'LINK-USD', 'DOT-USD', 'UNI-USD', 'AVAX-USD', 'MATIC-USD', 'ATOM-USD', 'ALGO-USD',
+    'LINK-USD', 'DOT-USD', 'AVAX-USD', 'ATOM-USD', 'ALGO-USD',
     'VET-USD', 'FIL-USD', 'TRX-USD', 'XLM-USD', 'THETA-USD', 'AAVE-USD', 'EOS-USD',
-    'MKR-USD', 'COMP-USD', 'SUSHI-USD', 'YFI-USD', 'CRV-USD', 'SNX-USD', 'ZRX-USD',
-    'REN-USD', 'BAL-USD', 'GRT-USD', '1INCH-USD', 'KNC-USD', 'LRC-USD', 'OCEAN-USD',
+    'MKR-USD', 'SUSHI-USD', 'YFI-USD', 'CRV-USD', 'SNX-USD', 'ZRX-USD',
+    'REN-USD', 'BAL-USD', '1INCH-USD', 'KNC-USD', 'LRC-USD', 'OCEAN-USD',
     'UMA-USD', 'BAND-USD', 'SRM-USD', 'RUNE-USD', 'CRO-USD', 'FTT-USD', 'GNO-USD',
-    'HNT-USD', 'KAVA-USD', 'LUNA-USD', 'NEAR-USD', 'RAY-USD', 'SAND-USD', 'STX-USD',
+    'HNT-USD', 'KAVA-USD', 'NEAR-USD', 'RAY-USD', 'SAND-USD',
     'WAVES-USD', 'ZIL-USD'
 ]
 
 STOCK_INDICES = [
     '^GSPC', '^DJI', '^IXIC', '^FTSE', '^N225', '^HSI', '^BSESN', '^MXX', '^AXJO',
-    '^GDAXI', '^FCHI', '^AORD', '^SSMI', '^IBEX', '^TA125', '^KLSE', '^NZ50', '^OMX',
-    '^RTS', '^SSEC'
+    '^GDAXI', '^FCHI', '^AORD', '^SSMI', '^IBEX', '^KLSE', '^NZ50', '^OMX'
 ]
 
 ETFS = [

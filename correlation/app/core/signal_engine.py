@@ -79,27 +79,37 @@ class SignalEngine:
         try:
             with open(file_path, 'r') as f:
                 for line in f:
-                    # Match header lines like "Period: 1mo with Shift of 1"
+                    # Match header lines like "--- Period: 1mo with Shift of 1 day(s) ---"
                     header_match = re.search(r"Period: (\w+) with Shift of (\d+)", line)
                     if header_match:
                         current_period, current_shift = header_match.groups()
                         current_shift = int(current_shift)
                         continue
 
-                    # Match data lines starting with number
-                    if re.match(r"^\s*\d+\s+", line) and "Ticker" not in line:
-                        parts = line.split()
-                        if len(parts) >= 3:
-                            try:
+                    # Skip header row (contains "Ticker", "Correlation", etc.)
+                    if "Ticker" in line or "Correlation" in line:
+                        continue
+
+                    # Match data lines with format: TICKER VALUE PERIOD SHIFT
+                    # Example: "     XLU     0.951039    1mo           1"
+                    parts = line.split()
+                    if len(parts) >= 2 and current_period is not None:
+                        try:
+                            # First part is ticker, second is correlation
+                            ticker = parts[0].strip()
+                            correlation = float(parts[1])
+                            
+                            # Validate ticker format (contains letters/numbers/special chars)
+                            if ticker and not ticker.startswith('-') and ticker[0].isalnum():
                                 data.append({
-                                    "ticker": parts[1],
-                                    "correlation": float(parts[2]),
+                                    "ticker": ticker,
+                                    "correlation": correlation,
                                     "period": current_period,
                                     "shift_days": current_shift
                                 })
-                            except (ValueError, IndexError):
-                                logger.warning(f"Could not parse line: {line}")
-                                continue
+                        except (ValueError, IndexError):
+                            # Skip lines that don't match expected format
+                            continue
 
             result_df = pd.DataFrame(data)
             logger.debug(f"Parsed {len(result_df)} correlation records")
