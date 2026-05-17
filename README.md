@@ -181,4 +181,4 @@ to produce a structured, API-driven trading signal system.
 
 ## System Architecture
 
-![BNMP Global System Architecture](architecture-diagrams/BNMP-global-system-architecture.png)
+![BNMP Global System Architecture](./architecture-diagrams/BNMP-global-system-architecture.png)
