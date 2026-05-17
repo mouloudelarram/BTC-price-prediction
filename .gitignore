@@ -157,3 +157,7 @@ mood/scrapper/data_sourcing/output/
 mood/llms/old_output/
 mood/llms/old_logs/
 mood/llms/old_checkpoints/
+
+# Ignore the frontend build output
+frontend/build/
+frontend/dist/
