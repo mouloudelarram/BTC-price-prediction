@@ -1,0 +1,6 @@
+# Absolutely minimal core dependencies
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
