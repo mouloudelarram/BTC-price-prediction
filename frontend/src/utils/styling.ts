@@ -19,6 +19,7 @@ export function formatConfidence(confidence: number): string {
  * Get signal color classes
  */
 export function getSignalColor(signal: string): string {
+  if (!signal) return 'text-gray-400';
   switch (signal.toUpperCase()) {
     case 'BUY':
       return 'text-neon-green';
@@ -36,6 +37,7 @@ export function getSignalColor(signal: string): string {
  * Get signal background color
  */
 export function getSignalBgColor(signal: string): string {
+  if (!signal) return 'bg-dark-panel/30 border-dark-border';
   switch (signal.toUpperCase()) {
     case 'BUY':
       return 'bg-neon-green/10 border-neon-green/30';
@@ -53,6 +55,7 @@ export function getSignalBgColor(signal: string): string {
  * Get sentiment color
  */
 export function getSentimentColor(sentiment: string): string {
+  if (!sentiment) return 'text-neon-blue';
   switch (sentiment.toUpperCase()) {
     case 'POSITIVE':
     case 'BULLISH':

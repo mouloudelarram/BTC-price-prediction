@@ -36,7 +36,8 @@ class APIClient {
   // Final Signal API
   async getFinalSignal(): Promise<FinalSignalResponse> {
     try {
-      const response = await this.client.get('/final/signal');
+      const response = await this.client.get('/api/v1/correlation/signal');
+      console.log('Final Signal Response: ', response.data);
       return response.data;
     } catch (error) {
       console.error('Error fetching final signal:', error);
@@ -47,7 +48,8 @@ class APIClient {
   // Correlation Engine API
   async getCorrelation(): Promise<CorrelationResponse> {
     try {
-      const response = await this.client.get('/correlation/summary');
+      const response = await this.client.get('/api/v1/correlation/summary');
+      console.log('Correlation Response: ', response.data);
       return response.data;
     } catch (error) {
       console.error('Error fetching correlation data:', error);
@@ -58,7 +60,7 @@ class APIClient {
   // Deep Learning Model API
   async getDeepLearning(): Promise<DeepLearningResponse> {
     try {
-      const response = await this.client.get('/dl/predict');
+      const response = await this.client.get('/api/v1/correlation/signal');
       return response.data;
     } catch (error) {
       console.error('Error fetching deep learning prediction:', error);
@@ -69,7 +71,7 @@ class APIClient {
   // Mood Engine API
   async getMood(): Promise<MoodResponse> {
     try {
-      const response = await this.client.get('/mood/sentiment');
+      const response = await this.client.get('/api/v1/correlation/signal');
       return response.data;
     } catch (error) {
       console.error('Error fetching mood data:', error);

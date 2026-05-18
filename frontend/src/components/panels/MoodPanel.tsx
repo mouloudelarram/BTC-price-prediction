@@ -20,7 +20,7 @@ export default function MoodPanel({ isLoading }: MoodPanelProps) {
     );
   }
 
-  if (!mood) {
+  if (!mood || !mood.current || !mood.current.classification) {
     return (
       <div className="glass-lg rounded-2xl p-6 text-center">
         <p className="text-gray-400 text-sm">No mood data</p>

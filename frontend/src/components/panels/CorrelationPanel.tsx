@@ -20,7 +20,7 @@ export default function CorrelationPanel({ isLoading }: CorrelationPanelProps) {
     );
   }
 
-  if (!correlation) {
+  if (!correlation || !correlation.summary || !correlation.summary.top_correlations) {
     return (
       <div className="glass-lg rounded-2xl p-6 text-center">
         <p className="text-gray-400 text-sm">No correlation data</p>
